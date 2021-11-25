@@ -83,7 +83,6 @@ export class MonitoringPage implements OnInit {
          
         }
         this.history.humedads.nivel1.push(data.nivel1);
-        
         this.bars.data.datasets[0].data = this.history.humedads.nivel1.slice();
         
         break;
