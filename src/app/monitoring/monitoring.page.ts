@@ -15,20 +15,19 @@ export class MonitoringPage implements OnInit {
 
   history = {
     temperatura : {
-      nivel1: [],
-      nivel2: []
+      nivel1: []
     },
     humedadr: {
-      nivel1: [],
-      nivel2: []
+      nivel1: []
+      
     },
     humedads:  {
-      nivel1: [],
-      nivel2: []
+      nivel1: []
+    
     },
     luminosidad:  {
-      nivel1: [],
-      nivel2: []
+      nivel1: []
+    
     },
   };
 
@@ -70,45 +69,45 @@ export class MonitoringPage implements OnInit {
       if (this.history.luminosidad.nivel1.length===10){
         this.bars.data.labels.shift();
         this.history.luminosidad.nivel1.shift();
-        this.history.luminosidad.nivel2.shift();
+        
       }
       this.history.luminosidad.nivel1.push(data.nivel1);
-      this.history.luminosidad.nivel2.push(data.nivel2);
+    
       this.bars.data.datasets[0].data = this.history.luminosidad.nivel1.slice();
-      this.bars.data.datasets[1].data = this.history.luminosidad.nivel2.slice();
+      
       break;
       case 'humedads':
         if (this.history.humedads.nivel1.length===10){
           this.bars.data.labels.shift();
           this.history.humedads.nivel1.shift();
-          this.history.humedads.nivel2.shift();
+         
         }
         this.history.humedads.nivel1.push(data.nivel1);
-        this.history.humedads.nivel2.push(data.nivel2);
+        
         this.bars.data.datasets[0].data = this.history.humedads.nivel1.slice();
-        this.bars.data.datasets[1].data = this.history.humedads.nivel2.slice();
+        
         break;
       case 'humedadr':
         if (this.history.humedads.nivel1.length===10){
           this.bars.data.labels.shift();
           this.history.humedadr.nivel1.shift();
-          this.history.humedadr.nivel2.shift();
+          
         }
         this.history.humedadr.nivel1.push(data.nivel1);
-        this.history.humedadr.nivel2.push(data.nivel2);
+        
         this.bars.data.datasets[0].data = this.history.humedadr.nivel1.slice();
-        this.bars.data.datasets[1].data = this.history.humedadr.nivel2.slice();
+        
         break;
       case 'temperatura':
         if (this.history.temperatura.nivel1.length===10){
           this.bars.data.labels.shift();
           this.history.temperatura.nivel1.shift();
-          this.history.temperatura.nivel2.shift();
+          
         }
         this.history.temperatura.nivel1.push(data.nivel1);
-        this.history.temperatura.nivel2.push(data.nivel2);
+       
         this.bars.data.datasets[0].data = this.history.temperatura.nivel1.slice();
-        this.bars.data.datasets[1].data = this.history.temperatura.nivel2.slice();
+      
         break;
    }
     this.bars.update();
@@ -131,13 +130,7 @@ export class MonitoringPage implements OnInit {
             borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
             //borderWidth: 1
           },
-          {
-            label: 'Nivel2',
-            data: this.history.luminosidad.nivel2,
-            //backgroundColor: 'rgb(0, 102, 255)', // array should have same number of elements as number of dataset
-            borderColor: 'rgb(0, 102, 255)',// array should have same number of elements as number of dataset
-            //borderWidth: 1
-          }
+          
         ]
       },
       options: {

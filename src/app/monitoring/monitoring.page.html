@@ -19,23 +19,23 @@
   </ion-card>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button (click)="changeTab('luminosidad')">
+      <ion-tab-button (click)="changeTab('cm')">
         <ion-icon name="bulb"></ion-icon>
-        <ion-label>Luminosidad</ion-label>
+        <ion-label>Nivel</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button (click)="changeTab('humedads')">
+      <ion-tab-button (click)="changeTab('ppm')">
         <ion-icon name="water"></ion-icon>
-        <ion-label>Hum. Suelo</ion-label>
+        <ion-label>TDS</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button (click)="changeTab('temperatura')">
+      <ion-tab-button (click)="changeTab('pH')">
         <ion-icon name="thermometer"></ion-icon>
-        <ion-label>Temperatura</ion-label>
+        <ion-label>pH</ion-label>
       </ion-tab-button>
-      <ion-tab-button (click)="changeTab('humedadr')">
+      <ion-tab-button (click)="changeTab('°C')">
         <ion-icon name="snow"></ion-icon>
-        <ion-label>Hum. Relativa</ion-label>
+        <ion-label>Temperatura</ion-label>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
