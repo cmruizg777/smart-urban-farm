@@ -1,6 +1,8 @@
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RealtimeService } from '../services/realtime/realtime.service';
 import { Chart } from 'chart.js';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,29 +13,31 @@ import { Chart } from 'chart.js';
 export class MonitoringPage implements OnInit {
 
   @ViewChild('Chart') barChart;
-  tab = 'luminosidad';
+  tab = 'nivel';
 
   history = {
-    temperatura : {
-      nivel1: []
+    nivel : {
+      nivel1: [],
+      labels: []
     },
-    humedadr: {
-      nivel1: []
-      
+    temp: {
+      nivel1: [],
+      labels: []
     },
-    humedads:  {
-      nivel1: []
-    
+    tds:  {
+      nivel1: [],
+      labels: []
     },
-    luminosidad:  {
-      nivel1: []
-    
+    ph:  {
+      nivel1: [],
+      labels: []
     },
   };
-
+  currentValue1 = 0;
+  currentState1 = "";
   bars: any;
   colorArray: any;
-
+  firebaseSubscription: Subscription;
   constructor(
     private realtime: RealtimeService
   ) {}
@@ -41,72 +45,56 @@ export class MonitoringPage implements OnInit {
     setTimeout(() => {
       this.createBarChart();
       this.getData();
+      this.getCurrentState();
       //this.appendData(null);
     }, 0);
   }
   appendData(newData, counter = 0){
-    /*
-    setTimeout(() => {
-      if (this.bars.data.datasets[0].data.length===10){
-        this.bars.data.labels.shift();
-        this.bars.data.datasets[0].data.shift();
-      }
-      const label = this.getTimeString();
-      this.bars.data.labels.push(label);
-      const data = Math.sin(2*Math.PI*Number(0.125)*(counter));
-      this.bars.data.datasets[0].data.push(data);
-      this.bars.update();
-      counter++;
-      this.appendData(counter);
-    },250);
-    */
     const label = this.getTimeString();
     this.bars.data.labels.push(label);
     //const data = Math.sin(2*Math.PI*Number(0.125)*(counter));
     const data = newData;
+    this.currentValue1 = data;
    switch(this.tab){
-    case 'luminosidad':
-      if (this.history.luminosidad.nivel1.length===10){
-        this.bars.data.labels.shift();
-        this.history.luminosidad.nivel1.shift();
-        
+    case 'nivel':
+      if (this.history.nivel.nivel1.length===10){
+        this.history.nivel.labels.shift();
+        this.history.nivel.nivel1.shift();
       }
-      this.history.luminosidad.nivel1.push(data.nivel1);
-    
-      this.bars.data.datasets[0].data = this.history.luminosidad.nivel1.slice();
-      
+      this.history.nivel.nivel1.push(data);
+      this.history.nivel.labels.push(label);
+      this.bars.data.labels = this.history.nivel.labels.slice();
+      this.bars.data.datasets[0].data = this.history.nivel.nivel1.slice();
       break;
-      case 'humedads':
-        if (this.history.humedads.nivel1.length===10){
-          this.bars.data.labels.shift();
-          this.history.humedads.nivel1.shift();
-         
+    case 'ph':
+        if (this.history.ph.nivel1.length===10){
+          this.history.ph.labels.shift();
+          this.history.ph.nivel1.shift();
         }
-        this.history.humedads.nivel1.push(data.nivel1);
-        this.bars.data.datasets[0].data = this.history.humedads.nivel1.slice();
-        
+        this.history.ph.nivel1.push(data);
+        this.history.ph.labels.push(label);
+        this.bars.data.labels = this.history.ph.labels.slice();
+        this.bars.data.datasets[0].data = this.history.ph.nivel1.slice();
         break;
-      case 'humedadr':
-        if (this.history.humedads.nivel1.length===10){
-          this.bars.data.labels.shift();
-          this.history.humedadr.nivel1.shift();
-          
+      case 'tds':
+        if (this.history.tds.nivel1.length===10){
+          this.history.tds.labels.shift();
+          this.history.tds.nivel1.shift();
         }
-        this.history.humedadr.nivel1.push(data.nivel1);
-        
-        this.bars.data.datasets[0].data = this.history.humedadr.nivel1.slice();
-        
+        this.history.tds.nivel1.push(data);
+        this.history.tds.labels.push(label);
+        this.bars.data.labels = this.history.tds.labels.slice();
+        this.bars.data.datasets[0].data = this.history.tds.nivel1.slice();
         break;
-      case 'temperatura':
-        if (this.history.temperatura.nivel1.length===10){
-          this.bars.data.labels.shift();
-          this.history.temperatura.nivel1.shift();
-          
+      case 'temp':
+        if (this.history.temp.nivel1.length===10){
+          this.history.temp.labels.shift();
+          this.history.temp.nivel1.shift();
         }
-        this.history.temperatura.nivel1.push(data.nivel1);
-       
-        this.bars.data.datasets[0].data = this.history.temperatura.nivel1.slice();
-      
+        this.history.temp.nivel1.push(data);
+        this.history.temp.labels.push(label);
+        this.bars.data.labels = this.history.temp.labels.slice();
+        this.bars.data.datasets[0].data = this.history.temp.nivel1.slice();
         break;
    }
     this.bars.update();
@@ -124,12 +112,11 @@ export class MonitoringPage implements OnInit {
         datasets: [
           {
             label: 'Nivel1',
-            data: this.history.luminosidad.nivel1,
+            data: this.history.nivel.nivel1,
             //backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
             borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
             //borderWidth: 1
-          },
-          
+          }
         ]
       },
       options: {
@@ -148,13 +135,27 @@ export class MonitoringPage implements OnInit {
     //this.appendData();
   }
   async getData(){
-    this.realtime.getLevelData(this.tab).subscribe((data: any) => {
-      console.log(data);
+    let path = ''+this.tab.trim();
+    this.firebaseSubscription = this.realtime.getLevelData(path).subscribe((data: any) => {
+      console.log(data, this.tab);
       this.appendData(data);
+    });
+  }
+  async getCurrentState(){
+    let path = 'estado';
+    this.firebaseSubscription = this.realtime.getLevelData(path).subscribe((data: any) => {
+      this.currentState1 = data[0];
     });
   }
   changeTab(tab: string){
     this.tab = tab;
+    this.firebaseSubscription.unsubscribe();
     this.getData();
+    this.getCurrentState();
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.firebaseSubscription.unsubscribe();
   }
 }

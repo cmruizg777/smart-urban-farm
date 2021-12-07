@@ -17,23 +17,36 @@
       <canvas #Chart></canvas>
     </ion-card-content>
   </ion-card>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>Valor Actual:</ion-card-subtitle>
+      <ion-card-title><ion-text>{{currentValue1}}</ion-text></ion-card-title>
+    </ion-card-header>
+    <ion-card-header>
+      <ion-card-subtitle>Estado Nutricional:</ion-card-subtitle>
+      <ion-card-title><ion-text>{{currentState1}}</ion-text></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button (click)="changeTab('cm')">
+      <ion-tab-button (click)="changeTab('nivel')">
         <ion-icon name="bulb"></ion-icon>
         <ion-label>Nivel</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button (click)="changeTab('ppm')">
+      <ion-tab-button (click)="changeTab('tds')">
         <ion-icon name="water"></ion-icon>
         <ion-label>TDS</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button (click)="changeTab('pH')">
+      <ion-tab-button (click)="changeTab('ph')">
         <ion-icon name="thermometer"></ion-icon>
         <ion-label>pH</ion-label>
       </ion-tab-button>
-      <ion-tab-button (click)="changeTab('°C')">
+      <ion-tab-button (click)="changeTab('temp')">
         <ion-icon name="snow"></ion-icon>
         <ion-label>Temperatura</ion-label>
       </ion-tab-button>

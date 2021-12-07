@@ -12,7 +12,8 @@ export class RealtimeService {
 
   getLevelData(path: string){
 
-    return this.db.list(path).snapshotChanges()
+    return this.db.object(path).valueChanges();
+    /*
     .pipe(map((actions)=>{
       const obj = {};
       actions.map(
@@ -22,6 +23,6 @@ export class RealtimeService {
           return;
         });
       return obj;
-      }));
+      }));*/
   }
 }
