@@ -143,7 +143,7 @@ export class MonitoringPage implements OnInit {
   }
   async getCurrentState(){
     let path = 'estado';
-    this.firebaseSubscription = this.realtime.getLevelData(path).subscribe((data: any) => {
+    this.realtime.getLevelData(path).subscribe((data: any) => {
       this.currentState1 = data[0];
     });
   }
