@@ -1,13 +1,13 @@
 ion-content {
   --background: url(./../../assets/hidroponiaintro.jpeg);
   div.menu-items{
-    display: -ms-flexbox;
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 75%;
     ion-card{
       display: block;
-      width: 70%;
+      width: 35%;
       opacity: 0.9;
       text-align: center;
       border: solid;

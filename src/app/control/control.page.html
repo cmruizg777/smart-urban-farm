@@ -7,6 +7,51 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="data">
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-title>Valores Actuales Regadío:
+        <ion-text color="primary">
+          <i class="fa fa-water"></i>
+        </ion-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Nivel 1:
+            <ng-container *ngIf="data.valvula.nivel1; else elseTemplate">
+              <span>Encendido</span>
+            </ng-container>
+          </ion-label>
+          <ion-toggle color="primary" [(ngModel)]="data.valvula.nivel1" (ngModelChange)="sendChange()"></ion-toggle>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-title>Valores Actuales Ventiladores:
+        <ion-text color="dark">
+          <i class="fa fa-fan"></i>
+        </ion-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Nivel 1:
+            <ng-container *ngIf="data.ventiladores.nivel1; else elseTemplate">
+              <span>Encendido</span>
+            </ng-container>
+          </ion-label>
+          <ion-toggle color="dark" [(ngModel)]="data.ventiladores.nivel1" (ngModelChange)="sendChange()"></ion-toggle>
+        </ion-item>
 
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ng-template #elseTemplate>
+    <span>Apagado</span>
+</ng-template>
 </ion-content>
