@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content *ngIf="data">
-  <ion-card class="welcome-card">
+  <ion-card class="welcome1">
     <ion-card-header>
-      <ion-card-title>Valores Actuales Regadío:
+      <ion-card-title>Estado Actual del Regadío:
         <ion-text color="primary">
           <i class="fa fa-water"></i>
         </ion-text>
@@ -29,9 +29,9 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <ion-card class="welcome-card">
+  <ion-card class="welcome2">
     <ion-card-header>
-      <ion-card-title>Valores Actuales Ventiladores:
+      <ion-card-title>Estado Actual de Ventilación:
         <ion-text color="dark">
           <i class="fa fa-fan"></i>
         </ion-text>
@@ -51,7 +51,7 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <ng-template #elseTemplate>
+    <ng-template #elseTemplate>
     <span>Apagado</span>
 </ng-template>
 </ion-content>

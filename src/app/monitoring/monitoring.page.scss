@@ -1,6 +1,16 @@
 ion-content{
-  --background: url(../../assets/background.jpg);
+  --background: url(../../assets/supervision.jpeg);
 }
 .welcome-card{
-  --background: rgba(0,0,255,0.5);
+  --background: rgba(242, 242, 253, 0.5);
+  --color: red
+}
+.welcome{
+  --background: rgba(242, 242, 253, 0.5);
+}
+
+ion-content::part(background) {
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }

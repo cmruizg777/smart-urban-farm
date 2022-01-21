@@ -114,17 +114,19 @@ export class MonitoringPage implements OnInit {
             label: 'Nivel1',
             data: this.history.nivel.nivel1,
             //backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
-            borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
-            //borderWidth: 1
+            borderColor: 'rgb(0, 194, 129)',// array should have same number of elements as number of dataset
+            borderWidth: 3
           }
         ]
       },
       options: {
         scales: {
-          yAxes: [{
+          yAxes:  [{
             ticks: {
               beginAtZero: true
+              
             }
+            
           }]
         }
       }
