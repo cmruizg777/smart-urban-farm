@@ -25,4 +25,7 @@ export class RealtimeService {
       return obj;
       }));*/
   }
+  updateControlData(controlData: any){
+    this.db.database.ref('control/').set(controlData).then().catch();
+  }
 }

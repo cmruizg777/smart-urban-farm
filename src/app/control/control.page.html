@@ -19,12 +19,12 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Nivel 1:
-            <ng-container *ngIf="data.valvula.nivel1; else elseTemplate">
+          <ion-label>
+            <ng-container *ngIf="data.electrovalvula; else elseTemplate">
               <span>Encendido</span>
             </ng-container>
           </ion-label>
-          <ion-toggle color="primary" [(ngModel)]="data.valvula.nivel1" (ngModelChange)="sendChange()"></ion-toggle>
+          <ion-toggle color="primary" [(ngModel)]="data.electrovalvula" (ngModelChange)="sendChange()"></ion-toggle>
         </ion-item>
       </ion-list>
     </ion-card-content>
@@ -40,12 +40,12 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Nivel 1:
-            <ng-container *ngIf="data.ventiladores.nivel1; else elseTemplate">
+          <ion-label>
+            <ng-container *ngIf="data.ventilador; else elseTemplate">
               <span>Encendido</span>
             </ng-container>
           </ion-label>
-          <ion-toggle color="dark" [(ngModel)]="data.ventiladores.nivel1" (ngModelChange)="sendChange()"></ion-toggle>
+          <ion-toggle color="dark" [(ngModel)]="data.ventilador" (ngModelChange)="sendChange()"></ion-toggle>
         </ion-item>
 
       </ion-list>
