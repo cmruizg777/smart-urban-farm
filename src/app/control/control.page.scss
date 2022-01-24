@@ -1,11 +1,13 @@
 ion-content{
-    --background: url(../../assets/supervision.jpeg);
+    --background: url(../../assets/control.jpeg);
   }
   .welcome1{
-    --background: rgba(242, 242, 253, 0.5);
+    --background: rgba(242, 242, 253, 0.7);
+    -color: rgba(0, 0, 100, 0.7);
+    
   }
   .welcome2{
-    --background: rgba(242, 242, 253, 0.5);
+    --background: rgba(242, 242, 253, 0.7);
   }
   ion-content::part(background) {
     background-position: center center !important;
